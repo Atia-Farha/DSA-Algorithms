@@ -3,7 +3,7 @@
 
 #define N 100
 
-int q[N], front = -1, rear = -1;
+int Queue[N], front = -1, rear = -1;
 
 bool isEmpty() {
     return front == -1;
@@ -14,22 +14,22 @@ bool isFull() {
 }
 
 void enqueue(int x) {
-    if (isFull()) return;
-
-    if (isEmpty()) {
+    if (isFull()) {
+        printf("Queue overflow\N");
+    }
+    else if (isEmpty()) {
         front = rear = 0;
+        Queue[rear] = x;
     }
     else {
-        rear++;
+        Queue[++rear] = x;
     }
-
-    q[rear] = x;
 }
 
 int dequeue() {
     if (isEmpty()) return -1;
 
-    int x = q[front];
+    int x = Queue[front];
 
     if (front == rear) {
         front = rear = -1;
@@ -43,17 +43,17 @@ int dequeue() {
 
 int frontElement() {
     if (isEmpty()) return -1;
-    return q[front];
+    return Queue[front];
 }
 
 int rearElement() {
     if (isEmpty()) return -1;
-    return q[rear];
+    return Queue[rear];
 }
 
 void display() {
     for (int i = front; i <= rear; i++) {
-        printf("%d ", q[i]);
+        printf("%d ", Queue[i]);
     }
     printf("\n");
 }

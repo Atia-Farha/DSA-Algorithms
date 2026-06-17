@@ -1,21 +1,26 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAX 100
+#define N 100
 
-int stack[MAX];
+int stack[N];
 int top = -1;
+
+int isFull() {
+    return top == N - 1;
+}
 
 int isEmpty() {
     return top == -1;
 }
 
 void push(int x) {
-    if (top == MAX - 1) {
+    if (isFull()) {
         printf("Stack Overflow\n");
-        return;
     }
-    stack[++top] = x;
+    else {
+        stack[++top] = x;
+    }
 }
 
 int pop() {
@@ -25,15 +30,15 @@ int pop() {
     return stack[top--];
 }
 
-int graph[MAX][MAX];
+int graph[N][N];
 
 void addEdge(int u, int v) {
     graph[u][v] = 1;
     graph[v][u] = 1;
 }
 
-void performDFS(int startNode, int vertices) {
-    int visited[MAX] = {0};
+void DFS(int startNode, int vertices) {
+    int visited[N] = {0};
     int currentNode, i;
 
     push(startNode);
@@ -60,8 +65,8 @@ void performDFS(int startNode, int vertices) {
 int main() {
     int i, j;
 
-    for (i = 0; i < MAX; i++) {
-        for (j = 0; j < MAX; j++) {
+    for (i = 0; i < N; i++) {
+        for (j = 0; j < N; j++) {
             graph[i][j] = 0;
         }
     }
@@ -72,7 +77,7 @@ int main() {
     addEdge(20, 50);
     addEdge(30, 60);
 
-    performDFS(10, MAX);
+    DFS(10, N);
 
     return 0;
 }
