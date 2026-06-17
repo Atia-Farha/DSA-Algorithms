@@ -56,6 +56,27 @@ void reverseWords(char* str) {
     strcpy(str, result);
 }
 
+int isValid(char str[]) {
+    for (int i = 0; str[i] != '\0'; i++) {
+
+        if (str[i] == '(' || str[i] == '{' || str[i] == '[') {
+            push(str[i]);
+        }
+        else {
+            if (top == -1)
+                return 0;
+
+            char ch = pop();
+
+            if ((str[i] == ')' && ch != '(') || (str[i] == '}' && ch != '{') || (str[i] == ']' && ch != '[')) {
+                return 0;
+            }
+        }
+    }
+
+    return (top == -1);
+}
+
 int main() {
     char str[N];
 
